@@ -55,7 +55,6 @@ public class Transaction {
     private Supplier supplier;
 
     //toString
-
     @Override
     public String toString() {
         return "Transaction{" +
