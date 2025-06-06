@@ -46,9 +46,6 @@ public class User {
     @Column(name = "created_at")
     private final LocalDateTime createdAt = LocalDateTime.now();
 
-    //GETTERS
-    //SETTERS
-
     //toString
     @Override
     public String toString() {
