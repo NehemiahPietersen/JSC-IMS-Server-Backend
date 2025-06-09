@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 @Service
 @Slf4j
-public class JwrUtils {
+public class JwtUtils {
 
     private static final long EXPIRATION_TIME_IN_MILLISECONDS = 1000L * 60L * 60L * 24L * 30L * 6L; //expires in 6 months
 
