@@ -73,11 +73,9 @@ public class TransactionFilter {
             //combine all predicts
             return criteriaBuilder.or(predicateList.toArray(new Predicate[0]));
         };
-
-        //search by month and year
-
     }
 
+    //search by month and year
     public static Specification<Transaction> byMonthAndYear(int month, int year) {
         return (root, query, criteriaBuilder) -> {
             Expression<Integer> monthExpression = criteriaBuilder.function("month", Integer.class, root.get("createdAt"));
