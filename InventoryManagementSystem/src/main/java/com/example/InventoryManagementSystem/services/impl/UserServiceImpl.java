@@ -158,7 +158,7 @@ public class UserServiceImpl implements UserService {
 
         return Response.builder()
                 .status(200)
-                .message("Transactions retieved")
+                .message("Transactions retrieved")
                 .user(userDTO)
                 .build();
     }
