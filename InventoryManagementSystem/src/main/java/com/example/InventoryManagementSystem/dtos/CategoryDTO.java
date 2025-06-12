@@ -22,7 +22,7 @@ public class CategoryDTO {
 
     private Long id;
 
-    @NotBlank(message = "Category Name is required")
+//    @NotBlank(message = "Category Name is required")
     private String name;
 
     private List<Product> products;
