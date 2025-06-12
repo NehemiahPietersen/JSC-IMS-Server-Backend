@@ -36,17 +36,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response registerUser(RegisterRequest registerRequest) {
-        UserRole role = UserRole.MANAGER;
+        UserRole uRole = UserRole.MANAGER;
 
         if(registerRequest.getUserRole() != null) {
-            role = registerRequest.getUserRole();
+            uRole = registerRequest.getUserRole();
         }
 
         User userToSave = User.builder()
                 .name(registerRequest.getName())
                 .email(registerRequest.getEmail())
-                .password(registerRequest.getPassword())
-                .role(role)
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .contactNumber(registerRequest.getContactNumber())
+                .role(uRole) //todo: Fix the user role not working as it should from Requests being sent
                 .build();
 
         userRepository.save(userToSave);
@@ -102,9 +103,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response getUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(()-> new NotFoundException("User not found"));
+        User existingUser = userRepository.findById(id).orElseThrow(()-> new NotFoundException("User not found"));
 
-        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        UserDTO userDTO = modelMapper.map(existingUser, UserDTO.class);
         userDTO.setTransactions(null); //no transactions on the ID
 
         return Response.builder()
