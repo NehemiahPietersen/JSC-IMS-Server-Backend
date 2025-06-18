@@ -19,12 +19,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
+    //TODO: FIX THE CATEGORY SERVICE
 
     private CategoryRepository categoryRepository;
     private ModelMapper modelMapper;
 
     @Override
     public Response createCategory(CategoryDTO categoryDTO) {
+        log.info("CATEGORY IS: {}", categoryDTO);
+
         Category categoryToSave = modelMapper.map(categoryDTO, Category.class);
         categoryRepository.save(categoryToSave);
 
