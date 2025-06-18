@@ -32,7 +32,7 @@ public class ProductDTO {
 
     private BigDecimal price;
 
-    private int stockQuantity;
+    private Integer stockQuantity;
     private String description;
     private LocalDateTime expiryDate;
     private String imageUrl;

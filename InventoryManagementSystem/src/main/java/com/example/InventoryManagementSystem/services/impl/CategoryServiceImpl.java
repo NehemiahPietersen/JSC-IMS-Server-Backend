@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryList.forEach(category -> category.setProducts(null)); //only the categories no products need to be shown
 
         List<CategoryDTO> categoryDTOList = modelMapper.map(categoryList,
-                new TypeToken<CategoryDTO>() {}.getType());
+                new TypeToken<List<CategoryDTO>>() {}.getType());
 
         return Response.builder()
                 .status(200)
