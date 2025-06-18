@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
-    //TODO: FIX THE CATEGORY SERVICE
+    //TODO: FIX THE CATEGORY SERVICE - NOT WORKING
 
     private CategoryRepository categoryRepository;
     private ModelMapper modelMapper;
@@ -29,6 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
         log.info("CATEGORY IS: {}", categoryDTO);
 
         Category categoryToSave = modelMapper.map(categoryDTO, Category.class);
+
         categoryRepository.save(categoryToSave);
 
         return Response.builder()
@@ -81,8 +82,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Response deleteCategory(Long id) {
         categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("Category not found"));
-
         categoryRepository.deleteById(id);
+
         return Response.builder()
                 .status(200)
                 .message("Category successfully DELETED")
