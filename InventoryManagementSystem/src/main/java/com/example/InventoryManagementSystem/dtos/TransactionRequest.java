@@ -1,5 +1,6 @@
 package com.example.InventoryManagementSystem.dtos;
 
+import com.example.InventoryManagementSystem.enums.TransactionStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;

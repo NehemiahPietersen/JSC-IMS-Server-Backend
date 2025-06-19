@@ -78,8 +78,10 @@ public class TransactionServiceImpl implements TransactionService {
                 .note(transactionRequest.getNote())
                 .build();
 
-        transactionRepository.save(transaction); //save the transaction
+        //save the transaction
+        transactionRepository.save(transaction);
 
+        //RESPONSE
         return Response.builder()
                 .status(200)
                 .message("PURCHASE made Successfully")
@@ -115,6 +117,10 @@ public class TransactionServiceImpl implements TransactionService {
                 .note(transactionRequest.getNote())
                 .build();
 
+        //save the transaction
+        transactionRepository.save(transaction);
+
+        //RESPONSE
         return Response.builder()
                 .status(200)
                 .message("SALE made Successfully")
@@ -157,6 +163,9 @@ public class TransactionServiceImpl implements TransactionService {
                 .note(transactionRequest.getNote())
                 .build();
 
+        //save the transaction
+        transactionRepository.save(transaction);
+
         return Response.builder()
                 .status(200)
                 .message("RETURN in Progress")
@@ -174,7 +183,7 @@ public class TransactionServiceImpl implements TransactionService {
         Page<Transaction> transactionPage = transactionRepository.findAll(spec, pageable);
 
         List<TransactionDTO> transactionDTOList = modelMapper.map(transactionPage.getContent(),
-                new TypeToken<List<List<TransactionDTO>>>() {}.getType());
+                new TypeToken<List<TransactionDTO>>() {}.getType());
 
         //
         transactionDTOList.forEach(transactionDTO -> {
@@ -238,6 +247,7 @@ public class TransactionServiceImpl implements TransactionService {
         existingTransaction.setTransactionStatus(transactionStatus);
         existingTransaction.setUpdatedAt(LocalDateTime.now());
 
+        //save the transaction
         transactionRepository.save(existingTransaction);
 
         return Response.builder()
