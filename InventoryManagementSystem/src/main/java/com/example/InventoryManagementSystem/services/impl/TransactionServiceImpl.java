@@ -209,8 +209,6 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionDTO transactionDTO = modelMapper.map(transaction, TransactionDTO.class);
 
         transactionDTO.setUser(null);
-//        transactionDTO.setProducts(null);
-//        transactionDTO.setSupplier(null);
 
         return Response.builder()
                 .status(200)

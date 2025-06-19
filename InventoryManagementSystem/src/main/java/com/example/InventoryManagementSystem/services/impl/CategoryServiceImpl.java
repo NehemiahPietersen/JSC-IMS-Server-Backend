@@ -19,16 +19,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
-    //TODO: FIX THE CATEGORY SERVICE - NOT WORKING
 
-    private CategoryRepository categoryRepository;
-    private ModelMapper modelMapper;
+    private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public Response createCategory(CategoryDTO categoryDTO) {
-        log.info("CATEGORY IS: {}", categoryDTO);
-
         Category categoryToSave = modelMapper.map(categoryDTO, Category.class);
+        categoryDTO.setProducts(null);
 
         categoryRepository.save(categoryToSave);
 
@@ -58,6 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new NotFoundException("Category not Found"));
 
         CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
+        categoryDTO.setProducts(null);
 
         return Response.builder()
                 .status(200)
