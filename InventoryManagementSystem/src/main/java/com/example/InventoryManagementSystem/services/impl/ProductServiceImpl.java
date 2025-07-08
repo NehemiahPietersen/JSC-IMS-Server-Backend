@@ -33,6 +33,9 @@ public class ProductServiceImpl implements ProductService {
 
     private static final String IMAGE_DIRECTORY = System.getProperty("user.dir") + "/product-images/";
 
+    //Save the image to the REACT repo
+    private static final String IMAGE_DIRECTORY_2 = "D:/repos/React/JSC_Ministries/JSC-Inventory-management-frontend/inventory_management_system_view/public/products/";
+
     @Override
     public Response saveProduct(ProductDTO productDTO, MultipartFile imageFile) {
         Category category = categoryRepository.findById(productDTO.getCategoryId())
@@ -53,7 +56,8 @@ public class ProductServiceImpl implements ProductService {
         if(imageFile != null && !imageFile.isEmpty()) {
             log.info("Image file Exists");
 
-            String imagePath = saveImage(imageFile); //saves image
+//            String imagePath = saveImage(imageFile); //saves image locally
+            String imagePath = saveImage2(imageFile); //production
             productToSave.setImageUrl(imagePath); //add image to product entity
         }
 
@@ -126,7 +130,8 @@ public class ProductServiceImpl implements ProductService {
 
         //checks if image file has been changed
         if(imageFile != null && !imageFile.isEmpty()) {
-            String imagePath = saveImage(imageFile);
+//            String imagePath = saveImage(imageFile);
+            String imagePath = saveImage2(imageFile);
             existingProduct.setImageUrl(imagePath);
         }
 
@@ -189,5 +194,36 @@ public class ProductServiceImpl implements ProductService {
                 .message("success")
                 .productList(productDTOList)
                 .build();
+    }
+
+    //SAVE to REACT REPO:
+    private String saveImage2(MultipartFile imageFile) {
+        //validate image and check  if it is greater than 1GB
+        if(!imageFile.getContentType().startsWith("image/") || imageFile.getSize() > 1024 * 1024 *1024) {
+            throw new IllegalArgumentException("Only Image files under 1GB allowed");
+        }
+
+        //create directory if not exist
+        File directory = new File(IMAGE_DIRECTORY_2);
+        if(!directory.exists()) {
+            directory.mkdir();
+            log.info("Directory has been CREATED");
+        }
+
+        //generate unique file name for image
+        String uniqueFileName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
+
+        //get absolute path of image
+        String imagePath = IMAGE_DIRECTORY_2 + uniqueFileName;
+
+        try{
+            File destinationFile = new File(imagePath);
+            imageFile.transferTo(destinationFile); //writing image to destination folder
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error Saving Image: " + e.getMessage());
+        }
+
+//        return imagePath;
+        return "products/" + uniqueFileName; //get image in React Dir
     }
 }

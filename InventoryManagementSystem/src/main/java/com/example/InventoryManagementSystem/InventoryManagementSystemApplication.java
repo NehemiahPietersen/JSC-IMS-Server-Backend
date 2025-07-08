@@ -11,4 +11,4 @@ public class InventoryManagementSystemApplication {
 		SpringApplication.run(InventoryManagementSystemApplication.class, args);
 	}
 
-}
+}	
